@@ -21,10 +21,10 @@ node('node'){
       }
    }
 
-   stage('test case and report'){
-      try{
-         echo "executing test cases"
+   // stage('test case and report'){
+   //    try{
+   //       echo "executing test cases"
 
-      }
-   }
+   //    }
+   // }
 }
