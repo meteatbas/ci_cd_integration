@@ -41,4 +41,19 @@ node('node'){
          sh "echo error in packaging  and generating artifacts"
       }
    }
+
+   stage('deployment of application using docker'){
+      try{
+         sh "docker version"
+         sh "docker build -t meteatbas/archieveartifacts:newtag -f Dockerfile ."
+         sh "docker run -p 8080:8080 -d meteatbas/archieveartifacts:newtag"
+         // This step should not normally be used in your script. Consult the inline help for details.
+         withDockerRegistry(credentialsId: 'docker-hub-registry') {
+         sh "docker push meteatbas/archieveartifacts:newtag"
+         }
+      }
+      catch(err){
+         sh "echo error in deployment using docker"
+      }
+   }
 }
